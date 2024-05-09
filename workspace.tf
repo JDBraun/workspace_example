@@ -1,15 +1,5 @@
 // Terraform Documentation: https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/mws_workspaces
 
-// Wait on Credential Due to Race Condition
-// https://kb.databricks.com/en_US/terraform/failed-credential-validation-checks-error-with-terraform
-resource "null_resource" "previous" {}
-
-resource "time_sleep" "wait_30_seconds" {
-  depends_on = [null_resource.previous]
-
-  create_duration = "30s"
-}
-
 // Credential Configuration
 resource "databricks_mws_credentials" "this" {
   role_arn         = var.cross_account_role_arn
